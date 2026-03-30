@@ -1,10 +1,7 @@
-# Импортируем функции get_mask_card_number и get_mask_account из модуля masks.py
-
 from masks import get_mask_card_number
 from masks import get_mask_account
 
 
-# Импорт модуля re
 import re
 
 def mask_account_card(account_card: str) -> str:
@@ -23,7 +20,6 @@ def mask_account_card(account_card: str) -> str:
         return f"{letters_card} {get_mask_card_number(numbers_card)}"
 
 
-# Импорт модуля datetime
 from datetime import datetime
 
 def get_date(date: str) -> str:

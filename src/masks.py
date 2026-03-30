@@ -17,3 +17,4 @@ def get_mask_card_number(card_number: str) -> str:
     # Формируем маску: первые 4, пробел, следующие 2, **, пробел, ****, пробел, последние 4
     masked = f"{card_number[:4]} {card_number[4:6]}** **** {card_number[-4:]}"
     return masked
+
