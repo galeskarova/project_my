@@ -1,8 +1,10 @@
-from masks import get_mask_card_number, get_mask_account
-
+from masks import get_mask_card_number
+from masks import get_mask_account
 
 def test_get_mask_account():
-    pass
+    assert
+    assert
 
 def test_get_mask_card_number():
-    pass
+    assert
+    assert
