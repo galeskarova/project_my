@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def filter_by_state(list_of_dicts, state='EXECUTED'):
     """
     Фильтрует список словарей по значению ключа 'state'.
@@ -11,17 +13,12 @@ def filter_by_state(list_of_dicts, state='EXECUTED'):
     """
     return [d for d in list_of_dicts if d.get('state') == state]
 
+
+
 def sort_by_date(list_of_dicts, reverse=True):
-    """
-    Сортирует список словарей по дате (ключ 'date').
-
-    Args:
-        list_of_dicts (list of dict): Исходный список словарей.
-        reverse (bool): Порядок сортировки.
-                        True — убывание (сначала новые), False — возрастание.
-                        По умолчанию True.
-
-    Returns:
-        list of dict: Новый отсортированный список.
-    """
-    return sorted(list_of_dicts, key=lambda x: x['date'], reverse=reverse)
+    def safe_date(item):
+        try:
+            return datetime.fromisoformat(item['date'])
+        except (KeyError, ValueError, TypeError):
+            return datetime.min
+    return sorted(list_of_dicts, key=safe_date, reverse=reverse)
