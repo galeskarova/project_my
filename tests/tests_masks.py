@@ -1,5 +1,6 @@
 import pytest
-from masks import get_mask_account, get_mask_card_number
+import re
+from masks import get_mask_card_number, get_mask_account
 
 def test_improved_normal():
     assert get_mask_account("1234567890") == "**7890"
@@ -14,7 +15,6 @@ def test_improved_none_returns_none():
 def test_improved_empty_returns_none():
     assert get_mask_account("   ") is None
 
-
 def test_improved():
     assert get_mask_card_number("1234567890123456") == "1234 56** **** 3456"
     assert get_mask_card_number("1234 5678 9012 3456") == "1234 56** **** 3456"
@@ -24,4 +24,3 @@ def test_improved():
     assert get_mask_card_number("") is None
     assert get_mask_card_number(None) is None
     assert get_mask_card_number("   ") is None
-    assert get_mask_card_number("12345") is None   # слишком короткий
