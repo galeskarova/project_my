@@ -56,4 +56,8 @@ filter_by_state(list_of_dicts: list, state: str = 'EXECUTED') -> list
 
 sort_by_date(list_of_dicts: list, reverse: bool = True) -> list
 Сортирует список словарей по ключу 'date'. Параметр reverse=True (по умолчанию) означает сортировку по убыванию (сначала новые даты), False — по возрастанию.
+
+## Тестирование 
+Файл tests_dz предназначен для прохождения тестирования модулей программы. 
+
 ## Лиценция
