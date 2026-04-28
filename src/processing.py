@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 def filter_by_state(list_of_dicts, state='EXECUTED'):
     """
     Фильтрует список словарей по значению ключа 'state'.
@@ -12,7 +13,6 @@ def filter_by_state(list_of_dicts, state='EXECUTED'):
         list of dict: Новый список, содержащий только словари с указанным state.
     """
     return [d for d in list_of_dicts if d.get('state') == state]
-
 
 
 def sort_by_date(list_of_dicts, reverse=True):

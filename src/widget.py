@@ -4,7 +4,6 @@ from masks import get_mask_account
 from datetime import datetime
 
 
-
 def mask_account_card(account_card: str) -> str:
     if account_card is None:
         return ""
@@ -21,12 +20,7 @@ def mask_account_card(account_card: str) -> str:
         return f"{letters} {get_mask_card_number(numbers)}"
 
 
-
-
 def get_date(date: str) -> str:
-    """
-    Преобразует строку даты в формат "ДД.ММ.ГГГГ"
-    '"""
+    """Преобразует строку даты в формат "ДД.ММ.ГГГГ" """
     date = datetime.strptime(date, "%Y-%m-%dT%H:%M:%S.%f")
     return date.strftime("%d.%m.%Y")
-

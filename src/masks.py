@@ -1,5 +1,6 @@
 import re
 
+
 def get_mask_account(account):
     if account is None or not str(account).strip():
         return None   # или raise ValueError("Номер счёта не может быть пустым")
@@ -9,6 +10,7 @@ def get_mask_account(account):
         # Либо маскировать всё: "**" + "*" * (len...), либо выбросить ошибку
         raise ValueError("Номер счёта слишком короткий для маскирования")
     return "**" + account_str[-4:]
+
 
 def get_mask_card_number(card_number):
     """Возвращает маску номера карты или None при ошибке."""

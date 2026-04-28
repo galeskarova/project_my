@@ -1,9 +1,6 @@
 import pytest
-from widget import mask_account_card, get_date
-import re
-from masks import get_mask_card_number
-from masks import get_mask_account
-from datetime import datetime
+from src.widget import mask_account_card
+
 
 @pytest.mark.parametrize("input_str, expected", [
     # Стандарт 16 цифр
@@ -20,6 +17,8 @@ from datetime import datetime
 ])
 def test_mask_account_card_card_types(input_str, expected):
     assert mask_account_card(input_str) == expected
+
+
 @pytest.mark.parametrize("input_str, expected", [
     ("Счет 1234567890", "Счет **7890"),
     ("Счет 12345678901234567890", "Счет **7890"),
@@ -36,6 +35,7 @@ def test_mask_account_card_card_types(input_str, expected):
 def test_mask_account_card_account_types(input_str, expected):
     assert mask_account_card(input_str) == expected
 
+
 def test_mask_account_card_short_account_raises():
     with pytest.raises(ValueError, match="Номер счёта слишком короткий для маскирования"):
         mask_account_card("Счет 12")
@@ -44,14 +44,17 @@ def test_mask_account_card_short_account_raises():
     with pytest.raises(ValueError):
         mask_account_card("счет 123")
 
+
 def test_mask_account_card_no_numbers():
     assert mask_account_card("Счет") == "Счет"
     assert mask_account_card("Visa Classic") == "Visa Classic"
     assert mask_account_card("") == ""
     assert mask_account_card("  ") == ""
 
+
 def test_mask_account_card_none():
     assert mask_account_card(None) == ""
+
 
 def test_mask_account_card_invalid_card_length():
     # 10 цифр -> None -> строка "None"
@@ -59,7 +62,7 @@ def test_mask_account_card_invalid_card_length():
     # 20 цифр -> None
     assert mask_account_card("MasterCard 12345678901234567890") == "MasterCard None"
 
+
 def test_mask_account_card_prefix_only_letters_and_spaces():
     result = mask_account_card("Visa Classic (USA) 1234567890123456")
     assert result == "Visa Classic USA 1234 56** **** 3456"
-

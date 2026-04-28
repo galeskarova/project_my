@@ -1,4 +1,6 @@
 import pytest
+
+
 @pytest.fixture(params={
     ("1234567890123456", "1234 56** **** 3456"),
     (1234567890123456, "1234 56** **** 3456"),
@@ -10,17 +12,19 @@ import pytest
 def card_test_data(request):
     return request.param
 
+
 # Фикстура для номеров счетов
 @pytest.fixture(params=[
     ("12345678901234567890", "**7890"),
-    (12345678901234567890,   "**7890"),
-    ("1234",                 "**1234"),
-    ("12",                   "**12"),
-    ("",                     "**"),
-    ("abc",                  "**abc"),
+    (12345678901234567890, "**7890"),
+    ("1234", "**1234"),
+    ("12", "**12"),
+    ("", "**"),
+    ("abc", "**abc"),
 ])
 def account_test_data(request):
     return request.param
+
 
 @pytest.fixture
 def sample_transactions():
@@ -32,6 +36,7 @@ def sample_transactions():
         {"id": 5, "amount": 300},                     # нет ключа 'state'
         {"id": 6, "state": "EXECUTED", "amount": 75},
     ]
+
 
 @pytest.fixture
 def unsorted_transactions():

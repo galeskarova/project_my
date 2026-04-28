@@ -1,5 +1,5 @@
-import pytest
 from processing import filter_by_state, sort_by_date
+
 
 def test_no_matching_state(sample_transactions):
     """Ни один словарь не имеет статуса 'REJECTED'."""
@@ -41,6 +41,7 @@ def test_original_list_unchanged(sample_transactions):
     filter_by_state(sample_transactions, "EXECUTED")
     assert sample_transactions == original_copy
 
+
 def test_sort_descending(unsorted_transactions):
     result = sort_by_date(unsorted_transactions)
     expected_order = [1, 4, 3, 2, 5]  # id в порядке убывания дат (новые -> старые)
@@ -54,7 +55,7 @@ def test_sort_ascending(unsorted_transactions):
     result_ids = [item["id"] for item in result]
     assert result_ids == expected_order
 
-# ----- 3.  -----
+
 def test_stable_sort_same_dates():
     """Одинаковые даты: порядок должен сохраниться (устойчивость)"""
     data = [
@@ -66,7 +67,7 @@ def test_stable_sort_same_dates():
     assert [item["id"] for item in result] == [1, 2, 3]
 
 
-def test_empty_list():
+def test_empty_list_2():
     """Пустой список"""
     assert sort_by_date([]) == []
     assert sort_by_date([], reverse=False) == []
@@ -77,4 +78,3 @@ def test_single_element():
     data = [{"id": 42, "date": "2024-01-01"}]
     assert sort_by_date(data) == data
     assert sort_by_date(data, reverse=False) == data
-
