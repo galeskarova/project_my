@@ -3,7 +3,7 @@ from generators import filter_by_currency, transaction_descriptions, card_number
 
 
 @pytest.fixture
-def sample_transactions():
+def sample_transactions_1():
     return [
         {
             "id": 1,
@@ -40,9 +40,9 @@ def sample_transactions():
     ]
 
 
-def test_filter_by_currency_returns_correct_transactions(sample_transactions):
+def test_filter_by_currency_returns_correct_transactions(sample_transactions_1):
     """Проверяет, что фильтр возвращает только транзакции с заданной валютой"""
-    usd_filter = filter_by_currency(sample_transactions, "USD")
+    usd_filter = filter_by_currency(sample_transactions_1, "USD")
 
     transactions_usd = list(usd_filter)
 
@@ -52,9 +52,9 @@ def test_filter_by_currency_returns_correct_transactions(sample_transactions):
     assert transactions_usd[1]["id"] == 3
 
 
-def test_filter_by_currency_no_matching_currency(sample_transactions):
+def test_filter_by_currency_no_matching_currency(sample_transactions_1):
     """Если нет транзакций с указанной валютой, итератор должен быть пустым"""
-    filter_rub = filter_by_currency(sample_transactions, "RUB")
+    filter_rub = filter_by_currency(sample_transactions_1, "RUB")
 
     transactions_rub = list(filter_rub)
 
@@ -84,9 +84,9 @@ def test_filter_by_currency_missing_currency_field():
     assert result[0]["id"] == 8
 
 
-def test_filter_by_currency_generator_lazy_evaluation(sample_transactions):
+def test_filter_by_currency_generator_lazy_evaluation(sample_transactions_1):
     """Проверяет, что генератор работает лениво (не вычисляет все сразу)"""
-    usd_filter = filter_by_currency(sample_transactions, "USD")
+    usd_filter = filter_by_currency(sample_transactions_1, "USD")
 
     # Поэлементное извлечение
     first = next(usd_filter)
@@ -101,7 +101,7 @@ def test_filter_by_currency_generator_lazy_evaluation(sample_transactions):
 
 
 @pytest.fixture
-def sample_transactions():
+def sample_transactions_2():
     return [
         {"id": 1, "description": "Перевод организации"},
         {"id": 2, "description": "Перевод со счета на счет"},
@@ -111,9 +111,9 @@ def sample_transactions():
     ]
 
 
-def test_transaction_descriptions_returns_descriptions(sample_transactions):
+def test_transaction_descriptions_returns_descriptions(sample_transactions_2):
     """Проверяет, что генератор возвращает правильные описания для всех транзакций"""
-    descriptions = transaction_descriptions(sample_transactions)
+    descriptions = transaction_descriptions(sample_transactions_2)
     expected = [
         "Перевод организации",
         "Перевод со счета на счет",
@@ -144,9 +144,9 @@ def test_transaction_descriptions_missing_description():
     assert list(descriptions) == ["Нормальная транзакция", "", ""]
 
 
-def test_transaction_descriptions_generator_lazy_evaluation(sample_transactions):
+def test_transaction_descriptions_generator_lazy_evaluation(sample_transactions_2):
     """Проверка, что генератор работает лениво (пошаговый next)"""
-    desc_gen = transaction_descriptions(sample_transactions)
+    desc_gen = transaction_descriptions(sample_transactions_2)
     assert next(desc_gen) == "Перевод организации"
     assert next(desc_gen) == "Перевод со счета на счет"
     assert next(desc_gen) == "Перевод со счета на счет"

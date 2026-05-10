@@ -3,7 +3,7 @@ import re
 
 def get_mask_account(account):
     if account is None or not str(account).strip():
-        return None   # или raise ValueError("Номер счёта не может быть пустым")
+        return None  # или raise ValueError("Номер счёта не может быть пустым")
     account_str = str(account).strip()
     # Дополнительно: можно проверить, что строка состоит только из цифр, если это требуется
     if len(account_str) < 4:
@@ -17,7 +17,7 @@ def get_mask_card_number(card_number):
     if card_number is None:
         return None
     # Удаляем всё, кроме цифр
-    digits = re.sub(r'\D', '', str(card_number))
+    digits = re.sub(r"\D", "", str(card_number))
     if len(digits) < 12 or len(digits) > 19:
         return None  # или raise ValueError
     first6 = digits[:6]
