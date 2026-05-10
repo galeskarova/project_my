@@ -15,10 +15,8 @@ def transaction_descriptions(transactions):
 
 
 def card_number_generator(start, end):
-    """
-    Генерирует номера банковских карт в формате 'XXXX XXXX XXXX XXXX'
-    """
+    """Генерирует номера банковских карт в формате 'XXXX XXXX XXXX XXXX'"""
     for number in range(start, end + 1):
         number_str = f"{number:016d}"
-        formatted = " ".join(number_str[i:i+4] for i in range(0, 16, 4))
+        formatted = " ".join(number_str[i : i + 4] for i in range(0, 16, 4))
         yield formatted

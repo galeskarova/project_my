@@ -1,5 +1,6 @@
 import pytest
-from generators import filter_by_currency, transaction_descriptions, card_number_generator
+
+from generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
 @pytest.fixture
@@ -7,36 +8,24 @@ def sample_transactions_1():
     return [
         {
             "id": 1,
-            "operationAmount": {
-                "amount": "100.00",
-                "currency": {"name": "USD", "code": "USD"}
-            },
-            "description": "USD transaction 1"
+            "operationAmount": {"amount": "100.00", "currency": {"name": "USD", "code": "USD"}},
+            "description": "USD transaction 1",
         },
         {
             "id": 2,
-            "operationAmount": {
-                "amount": "200.00",
-                "currency": {"name": "EUR", "code": "EUR"}
-            },
-            "description": "EUR transaction"
+            "operationAmount": {"amount": "200.00", "currency": {"name": "EUR", "code": "EUR"}},
+            "description": "EUR transaction",
         },
         {
             "id": 3,
-            "operationAmount": {
-                "amount": "300.00",
-                "currency": {"name": "USD", "code": "USD"}
-            },
-            "description": "USD transaction 2"
+            "operationAmount": {"amount": "300.00", "currency": {"name": "USD", "code": "USD"}},
+            "description": "USD transaction 2",
         },
         {
             "id": 4,
-            "operationAmount": {
-                "amount": "400.00",
-                "currency": {"name": "GBP", "code": "GBP"}
-            },
-            "description": "GBP transaction"
-        }
+            "operationAmount": {"amount": "400.00", "currency": {"name": "GBP", "code": "GBP"}},
+            "description": "GBP transaction",
+        },
     ]
 
 
@@ -134,8 +123,8 @@ def test_transaction_descriptions_missing_description():
     """Если у транзакции нет ключа 'description', возвращается пустая строка (или None в зависимости от get)"""
     transactions_without_desc = [
         {"id": 1, "description": "Нормальная транзакция"},
-        {"id": 2, "amount": 100},     # нет description
-        {"id": 3, "description": None}  # description = None
+        {"id": 2, "amount": 100},  # нет description
+        {"id": 3, "description": None},  # description = None
     ]
     descriptions = transaction_descriptions(transactions_without_desc)
     # По умолчанию .get возвращает None, но по условию задачи лучше вернуть пустую строку

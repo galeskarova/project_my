@@ -19,7 +19,7 @@ def sort_by_date(list_of_dicts, reverse=True):
     def safe_date(item):
         try:
             return datetime.fromisoformat(item["date"])
-        except (KeyError, ValueError, TypeError):
+        except KeyError, ValueError, TypeError:
             return datetime.min
 
     return sorted(list_of_dicts, key=safe_date, reverse=reverse)
