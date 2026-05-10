@@ -57,6 +57,15 @@ filter_by_state(list_of_dicts: list, state: str = 'EXECUTED') -> list
 sort_by_date(list_of_dicts: list, reverse: bool = True) -> list
 Сортирует список словарей по ключу 'date'. Параметр reverse=True (по умолчанию) означает сортировку по убыванию (сначала новые даты), False — по возрастанию.
 
+filter_by_currency(transactions, currency_code)
+Принимает список словарей с транзакциями и код валюты (например, "USD"). Возвращает генератор, который поочередно выдаёт транзакции, у которых в поле operationAmount.currency.code указан заданный код.
+
+transaction_descriptions(transactions)
+Принимает список транзакций и возвращает генератор, выдающий описание каждой операции (значение ключа description). Если ключ отсутствует или равен None, возвращается пустая строка.
+
+card_number_generator(start, end)
+Генерирует номера банковских карт в формате XXXX XXXX XXXX XXXX для целых чисел от start до end включительно. Диапазон допустимых значений – от 0000 0000 0000 0001 до 9999 9999 9999 9999 (т.е. численно от 1 до 9 999 999 999 999 999).
+
 ## Тестирование 
 Проект покрыт автоматическими тестами с использованием фреймворка pytest. Тесты расположены в директории tests/ и охватывают все основные модули:
 
@@ -66,6 +75,7 @@ sort_by_date(list_of_dicts: list, reverse: bool = True) -> list
 
 - tests_processing.py – тестирование функций фильтрации (filter_by_state) и сортировки (sort_by_date).
 
+- test_generators.py - тесты для filter_by_currency, transaction_descriptions, card_number_generator
 ### Запуск тестов
 ```pytest tests/ -v```
 
