@@ -23,10 +23,10 @@ def test_default_state(sample_transactions):
 
 
 def test_missing_state_key():
-    """Тест, когда некоторые словари не содержат ключа 'state' """
+    """Тест, когда некоторые словари не содержат ключа 'state'"""
     data = [
         {"id": 1, "state": "EXECUTED"},
-        {"id": 2},                # без state
+        {"id": 2},  # без state
         {"id": 3, "state": "EXECUTED"},
     ]
     filtered = filter_by_state(data, "EXECUTED")
