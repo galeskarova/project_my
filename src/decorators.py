@@ -27,16 +27,16 @@ def log(filename: Optional[str] = None) -> Callable:
                 if filename is None:
                     print(log_message)
                 else:
-                    with open(filename, 'a', encoding='utf-8') as f:
-                        f.write(log_message + '\n')
+                    with open(filename, "a", encoding="utf-8") as f:
+                        f.write(log_message + "\n")
                 raise
             else:
                 # Если успешно – записываем лог
                 if filename is None:
                     print(log_message)
                 else:
-                    with open(filename, 'a', encoding='utf-8') as f:
-                        f.write(log_message + '\n')
+                    with open(filename, "a", encoding="utf-8") as f:
+                        f.write(log_message + "\n")
                 return result
 
         return wrapper
