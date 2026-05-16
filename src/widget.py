@@ -1,7 +1,7 @@
 import re
 from datetime import datetime
 
-from masks import get_mask_account, get_mask_card_number
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(account_card: str) -> str:
@@ -20,7 +20,7 @@ def mask_account_card(account_card: str) -> str:
         return f"{letters} {get_mask_card_number(numbers)}"
 
 
-def get_date(date: str) -> str:
+def get_date(date_str: str) -> str:
     """Преобразует строку даты в формат "ДД.ММ.ГГГГ" """
-    date = datetime.strptime(date, "%Y-%m-%dT%H:%M:%S.%f")
-    return date.strftime("%d.%m.%Y")
+    date_obj = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S.%f")
+    return date_obj.strftime("%d.%m.%Y")
