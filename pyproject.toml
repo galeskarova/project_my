@@ -4,10 +4,12 @@ version = "0.1.0"
 description = ""
 authors = ["Nastya <galeskarova@list.ru>"]
 readme = "README.md"
-requires-python = ">=3.9"
+packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
+requests = "^2.34.2"
+python-dotenv = "^1.2.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^9.0"
@@ -50,15 +52,3 @@ mypy_path = ["src"]
 
 [tool.mypy."pytest.*"]
 ignore_missing_imports = true
-
-[mypy]
-python_version = 3.8
-warn_return_any = true
-warn_unused_configs = true
-ignore_missing_imports = false
-explicit_package_bases = true
-namespace_packages = true
-
-
-[mypy-decorators]
-ignore_missing_imports = false
