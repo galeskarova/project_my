@@ -1,4 +1,5 @@
 import os
+
 import requests
 from dotenv import load_dotenv
 
@@ -19,11 +20,7 @@ def get_currency_rate(currency: str) -> float:
         return 0.0
 
     url = f"{BASE_URL}/convert"
-    params = {
-        "from": currency,
-        "to": "RUB",
-        "amount": 1
-    }
+    params = {"from": currency, "to": "RUB", "amount": 1}
     headers = {"apikey": API_KEY}
 
     try:
