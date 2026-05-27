@@ -3,24 +3,24 @@ import pytest
 from src.widget import get_mask_account, get_mask_card_number
 
 
-def test_improved_normal():
+def test_improved_normal() -> None:
     assert get_mask_account("1234567890") == "**7890"
 
 
-def test_improved_short_raises():
+def test_improved_short_raises() -> None:
     with pytest.raises(ValueError, match="слишком короткий"):
         get_mask_account("123")
 
 
-def test_improved_none_returns_none():
+def test_improved_none_returns_none() -> None:
     assert get_mask_account(None) is None
 
 
-def test_improved_empty_returns_none():
+def test_improved_empty_returns_none() -> None:
     assert get_mask_account("   ") is None
 
 
-def test_improved():
+def test_improved() -> None:
     assert get_mask_card_number("1234567890123456") == "1234 56** **** 3456"
     assert get_mask_card_number("1234 5678 9012 3456") == "1234 56** **** 3456"
     assert get_mask_card_number("1234-5678-9012-3456") == "1234 56** **** 3456"

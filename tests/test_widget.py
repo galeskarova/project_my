@@ -1,6 +1,8 @@
 import pytest
+from typing import Any
 
-from src.widget import mask_account_card, get_date
+from src.widget import get_date, mask_account_card
+
 
 @pytest.mark.parametrize(
     "input_str, expected",
@@ -18,7 +20,7 @@ from src.widget import mask_account_card, get_date
         ("Amex 378282246310005", "Amex 3782 82** **** 0005"),
     ],
 )
-def test_mask_account_card_card_types(input_str, expected):
+def test_mask_account_card_card_types(input_str: str, expected: str) -> None:
     assert mask_account_card(input_str) == expected
 
 
@@ -38,11 +40,11 @@ def test_mask_account_card_card_types(input_str, expected):
         # Буква "ё" не входит в диапазон [А-Яа-я] – будет потеряна
     ],
 )
-def test_mask_account_card_account_types(input_str, expected):
+def test_mask_account_card_account_types(input_str: str, expected: str) -> None:
     assert mask_account_card(input_str) == expected
 
 
-def test_mask_account_card_short_account_raises():
+def test_mask_account_card_short_account_raises() -> None:
     with pytest.raises(ValueError, match="Номер счёта слишком короткий для маскирования"):
         mask_account_card("Счет 12")
     with pytest.raises(ValueError):
@@ -51,24 +53,24 @@ def test_mask_account_card_short_account_raises():
         mask_account_card("счет 123")
 
 
-def test_mask_account_card_no_numbers():
+def test_mask_account_card_no_numbers() -> None:
     assert mask_account_card("Счет") == "Счет"
     assert mask_account_card("Visa Classic") == "Visa Classic"
     assert mask_account_card("") == ""
     assert mask_account_card("  ") == ""
 
 
-def test_mask_account_card_none():
+def test_mask_account_card_none() -> None:
     assert mask_account_card(None) == ""
 
 
-def test_mask_account_card_invalid_card_length():
+def test_mask_account_card_invalid_card_length() -> None:
     # 10 цифр -> None -> строка "None"
     assert mask_account_card("Visa 1234567890") == "Visa None"
     # 20 цифр -> None
     assert mask_account_card("MasterCard 12345678901234567890") == "MasterCard None"
 
 
-def test_mask_account_card_prefix_only_letters_and_spaces():
+def test_mask_account_card_prefix_only_letters_and_spaces() -> None:
     result = mask_account_card("Visa Classic (USA) 1234567890123456")
     assert result == "Visa Classic USA 1234 56** **** 3456"
