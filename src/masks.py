@@ -23,6 +23,7 @@ if not logger.handlers:
     logger.addHandler(file_handler)
 
 def get_mask_account(account):
+    logger.info(f"Вызвана функция get_mask_account с аргументом: {account}")
     if account is None or not str(account).strip():
         return None  # или raise ValueError("Номер счёта не может быть пустым")
     account_str = str(account).strip()
@@ -35,6 +36,7 @@ def get_mask_account(account):
 
 def get_mask_card_number(card_number):
     """Возвращает маску номера карты или None при ошибке."""
+    logger.info(f"Вызвана функция get_mask_card_number с аргументом: {card_number}")
     if card_number is None:
         return None
     # Удаляем всё, кроме цифр
