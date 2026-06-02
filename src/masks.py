@@ -1,5 +1,26 @@
 import re
+import logging
+import os
+from pathlib import Path
 
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+
+log_dir = Path(__file__).parent.parent / 'logs'
+log_dir.mkdir(exist_ok=True)
+
+log_file = log_dir / 'masks.log'
+file_handler = logging.FileHandler(log_file, mode='w', encoding='utf-8')
+file_handler.setLevel(logging.INFO)
+
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(formatter)
+
+
+if not logger.handlers:
+    logger.addHandler(file_handler)
 
 def get_mask_account(account):
     if account is None or not str(account).strip():
