@@ -1,5 +1,5 @@
-from unittest.mock import MagicMock, patch
 from typing import Any, Dict
+from unittest.mock import MagicMock, patch
 
 import pytest
 import requests
