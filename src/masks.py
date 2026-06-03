@@ -1,19 +1,18 @@
-import re
 import logging
+import re
 from pathlib import Path
-
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-log_dir = Path(__file__).parent.parent / 'logs'
+log_dir = Path(__file__).parent.parent / "logs"
 log_dir.mkdir(exist_ok=True)
 
-log_file = log_dir / 'masks.log'
-file_handler = logging.FileHandler(log_file, mode='w', encoding='utf-8')
+log_file = log_dir / "masks.log"
+file_handler = logging.FileHandler(log_file, mode="w", encoding="utf-8")
 file_handler.setLevel(logging.DEBUG)
 
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(formatter)
 
 if not logger.handlers:

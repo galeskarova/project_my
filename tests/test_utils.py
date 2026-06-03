@@ -1,18 +1,15 @@
 import json
 from pathlib import Path
-from typing import Any, List, Dict
+from typing import Any, Dict, List
 
 from src.utils import load_transactions
 
 
 def test_load_transactions_success(tmp_path: Path) -> None:
     """Корректный JSON-файл со списком транзакций"""
-    test_data: List[Dict[str, int]] = [
-        {"id": 1, "amount": 100},
-        {"id": 2, "amount": 200}
-    ]
+    test_data: List[Dict[str, int]] = [{"id": 1, "amount": 100}, {"id": 2, "amount": 200}]
     file_path: Path = tmp_path / "operations.json"
-    with open(file_path, 'w', encoding='utf-8') as f:
+    with open(file_path, "w", encoding="utf-8") as f:
         json.dump(test_data, f)
 
     result: List[Dict[str, Any]] = load_transactions(str(file_path))
@@ -37,7 +34,7 @@ def test_load_transactions_not_list(tmp_path: Path) -> None:
     """JSON-файл содержит не список (например, объект) -> пустой список"""
     test_data: Dict[str, str] = {"key": "value"}
     file_path: Path = tmp_path / "object.json"
-    with open(file_path, 'w', encoding='utf-8') as f:
+    with open(file_path, "w", encoding="utf-8") as f:
         json.dump(test_data, f)
 
     result: List[Dict[str, Any]] = load_transactions(str(file_path))
@@ -47,7 +44,7 @@ def test_load_transactions_not_list(tmp_path: Path) -> None:
 def test_load_transactions_invalid_json(tmp_path: Path) -> None:
     """Повреждённый JSON -> пустой список"""
     file_path: Path = tmp_path / "invalid.json"
-    with open(file_path, 'w', encoding='utf-8') as f:
+    with open(file_path, "w", encoding="utf-8") as f:
         f.write("{invalid json}")
 
     result: List[Dict[str, Any]] = load_transactions(str(file_path))
