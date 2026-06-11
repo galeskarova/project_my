@@ -1,9 +1,9 @@
-import sys
-from src.utils import load_transactions
 from src.file_reader import read_csv_transactions, read_excel_transactions
 from src.processing import sort_by_date
-from src.widget import get_date, mask_account_card
 from src.search import search_transactions
+from src.utils import load_transactions
+from src.widget import get_date, mask_account_card
+
 
 def get_user_choice(prompt: str, options: list) -> str:
     """Запрашивает у пользователя выбор из допустимых вариантов."""
@@ -12,6 +12,7 @@ def get_user_choice(prompt: str, options: list) -> str:
         if choice in options:
             return choice
         print(f"Неверный ввод. Пожалуйста, выберите из {options}")
+
 
 def get_yes_no(prompt: str) -> bool:
     """Запрашивает ответ Да/Нет, возвращает True/False."""
@@ -22,6 +23,7 @@ def get_yes_no(prompt: str) -> bool:
         if answer in ("нет", "no", "n"):
             return False
         print("Пожалуйста, ответьте 'Да' или 'Нет'.")
+
 
 def display_transactions(transactions):
     """Выводит транзакции в отформатированном виде, аналогичном примеру."""
@@ -46,6 +48,7 @@ def display_transactions(transactions):
         elif to_str:
             print(to_str)
         print(f"Сумма: {amount_str}")
+
 
 def main():
     print("Привет! Добро пожаловать в программу работы с банковскими транзакциями.")
@@ -74,26 +77,34 @@ def main():
     # Фильтрация по статусу
     valid_statuses = ["EXECUTED", "CANCELED", "PENDING"]
     while True:
-        status_input = input("Введите статус, по которому необходимо выполнить фильтрацию. Доступные статусы: EXECUTED, CANCELED, PENDING\n").strip().upper()
+        status_input = (
+            input(
+                "Введите статус, по которому необходимо выполнить фильтрацию. "
+                "Доступные статусы: EXECUTED, CANCELED, PENDING\n"
+            )
+            .strip()
+            .upper()
+        )
         if status_input in valid_statuses:
             break
-        print(f"Статус операции \"{status_input}\" недоступен.")
+        print(f'Статус операции "{status_input}" недоступен.')
     transactions = [t for t in transactions if t.get("state", "").upper() == status_input]
-    print(f"Операции отфильтрованы по статусу \"{status_input}\"")
+    print(f'Операции отфильтрованы по статусу "{status_input}"')
 
     # Сортировка по дате
     if get_yes_no("Отсортировать операции по дате?"):
         order = get_user_choice(
             "Отсортировать по возрастанию или по убыванию? (введите 'по возрастанию' или 'по убыванию'): ",
-            ["по возрастанию", "по убыванию"]
+            ["по возрастанию", "по убыванию"],
         )
-        reverse = (order == "по убыванию")
+        reverse = order == "по убыванию"
         transactions = sort_by_date(transactions, reverse=reverse)
 
     # Фильтрация по рублевым транзакциям
     if get_yes_no("Выводить только рублевые транзакции?"):
-        transactions = [t for t in transactions
-                        if t.get("operationAmount", {}).get("currency", {}).get("code") == "RUB"]
+        transactions = [
+            t for t in transactions if t.get("operationAmount", {}).get("currency", {}).get("code") == "RUB"
+        ]
 
     # Поиск по слову в описании
     if get_yes_no("Отфильтровать список транзакций по определенному слову в описании?"):
@@ -103,6 +114,7 @@ def main():
 
     print("\nРаспечатываю итоговый список транзакций...")
     display_transactions(transactions)
+
 
 if __name__ == "__main__":
     main()

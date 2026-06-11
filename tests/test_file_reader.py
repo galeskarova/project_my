@@ -1,4 +1,5 @@
 from unittest.mock import MagicMock, mock_open, patch
+
 from src.file_reader import read_csv_transactions, read_excel_transactions
 
 # Тесты для CSV

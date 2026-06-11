@@ -1,7 +1,7 @@
 import csv
 import logging
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 try:
     import pandas as pd
