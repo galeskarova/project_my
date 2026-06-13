@@ -1,5 +1,6 @@
-import pytest
 from typing import Any, Dict, List, Tuple, Union, cast
+
+import pytest
 
 
 @pytest.fixture(

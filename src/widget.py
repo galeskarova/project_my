@@ -21,6 +21,9 @@ def mask_account_card(account_card: str) -> str:
 
 
 def get_date(date_str: str) -> str:
-    """Преобразует строку даты в формат "ДД.ММ.ГГГГ" """
-    date_obj = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S.%f")
+    """Преобразует строку даты в формат ДД.ММ.ГГГГ."""
+    try:
+        date_obj = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S.%f")
+    except ValueError:
+        date_obj = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S")
     return date_obj.strftime("%d.%m.%Y")
